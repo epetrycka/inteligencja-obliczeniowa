@@ -1,0 +1,124 @@
+{
+  "settings": {
+    "piles": [
+      3,
+      4,
+      5
+    ],
+    "probability_nimby": 0.1,
+    "games_depth_duel": 200,
+    "games_algo_compare": 100,
+    "games_expecti": 100,
+    "nmoves_cap": 200
+  },
+  "task2_depth_duel": [
+    {
+      "variant": "nim_deterministic",
+      "agent_a": "NegamaxAB_d4",
+      "agent_b": "NegamaxAB_d6",
+      "games": 200,
+      "wins_a": 0,
+      "wins_b": 200,
+      "draws": 0,
+      "time_a_s": 0.521244,
+      "time_b_s": 3.48456,
+      "avg_move_a_ms": 0.5212,
+      "avg_move_b_ms": 3.8717
+    },
+    {
+      "variant": "nimby_probabilistic",
+      "agent_a": "NegamaxAB_d4",
+      "agent_b": "NegamaxAB_d6",
+      "games": 200,
+      "wins_a": 104,
+      "wins_b": 96,
+      "draws": 0,
+      "time_a_s": 0.400413,
+      "time_b_s": 2.960298,
+      "avg_move_a_ms": 0.5463,
+      "avg_move_b_ms": 4.0167
+    }
+  ],
+  "task6_algo_compare": [
+    {
+      "variant": "nim_deterministic",
+      "agent_a": "NegamaxAB_d4",
+      "agent_b": "NegamaxNoAB_d4",
+      "games": 100,
+      "wins_a": 50,
+      "wins_b": 50,
+      "draws": 0,
+      "time_a_s": 0.25392,
+      "time_b_s": 1.498581,
+      "avg_move_a_ms": 0.5643,
+      "avg_move_b_ms": 3.3302
+    },
+    {
+      "variant": "nim_deterministic",
+      "agent_a": "NegamaxAB_d6",
+      "agent_b": "NegamaxNoAB_d6",
+      "games": 100,
+      "wins_a": 50,
+      "wins_b": 50,
+      "draws": 0,
+      "time_a_s": 1.61822,
+      "time_b_s": 16.066979,
+      "avg_move_a_ms": 3.2364,
+      "avg_move_b_ms": 32.134
+    },
+    {
+      "variant": "nimby_probabilistic",
+      "agent_a": "NegamaxAB_d4",
+      "agent_b": "NegamaxNoAB_d4",
+      "games": 100,
+      "wins_a": 59,
+      "wins_b": 41,
+      "draws": 0,
+      "time_a_s": 0.249405,
+      "time_b_s": 1.727232,
+      "avg_move_a_ms": 0.6616,
+      "avg_move_b_ms": 4.4747
+    },
+    {
+      "variant": "nimby_probabilistic",
+      "agent_a": "NegamaxAB_d6",
+      "agent_b": "NegamaxNoAB_d6",
+      "games": 100,
+      "wins_a": 51,
+      "wins_b": 49,
+      "draws": 0,
+      "time_a_s": 1.238244,
+      "time_b_s": 17.898667,
+      "avg_move_a_ms": 3.5378,
+      "avg_move_b_ms": 50.9934
+    }
+  ],
+  "task8_expecti_compare": [
+    {
+      "variant": "nimby_probabilistic",
+      "agent_a": "NegamaxAB_d4",
+      "agent_b": "ExpectiNegamaxAB_d4",
+      "games": 100,
+      "wins_a": 25,
+      "wins_b": 75,
+      "draws": 0,
+      "time_a_s": 0.263489,
+      "time_b_s": 0.686822,
+      "avg_move_a_ms": 0.6057,
+      "avg_move_b_ms": 1.6752
+    },
+    {
+      "variant": "nimby_probabilistic",
+      "agent_a": "NegamaxAB_d6",
+      "agent_b": "ExpectiNegamaxAB_d6",
+      "games": 100,
+      "wins_a": 23,
+      "wins_b": 77,
+      "draws": 0,
+      "time_a_s": 1.502046,
+      "time_b_s": 7.900469,
+      "avg_move_a_ms": 3.6635,
+      "avg_move_b_ms": 20.6279
+    }
+  ]
+}
