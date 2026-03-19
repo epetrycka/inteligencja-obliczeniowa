@@ -15,7 +15,7 @@
 \geometry{margin=2.5cm}
 \sisetup{round-mode=places,round-precision=4}
 
-\title{Projekt 1: easyAI -- Nim i Nimby}
+\title{Lab 1: easyAI -- Nim i Nimby}
 \author{Mikołaj Dudkiewicz \and Eliza Petrycka}
 \date{\today}
 
@@ -27,9 +27,9 @@
     \vspace{0.4cm}
     {\large WEAIiIB ISI\par}
     \vspace{2.5cm}
-    {\LARGE \textbf{Projekt 1: easyAI -- Nim i Nimby}\par}
+    {\LARGE \textbf{Lab 1: easyAI -- Nim i Nimby}\par}
     \vspace{1.2cm}
-    {\large Przedmiot: Inteligencja obliczeniowa\par}
+    {\large Przedmiot: Inteligencja obliczeniowa w analizie danych cyfrowych\par}
     \vspace{1.8cm}
     \begin{tabular}{>{\raggedright\arraybackslash}p{0.35\textwidth} p{0.55\textwidth}}
         Autorzy: & Mikołaj Dudkiewicz \\
@@ -49,56 +49,56 @@
 W ramach laboratorium zrealizowano wszystkie punkty z pliku \texttt{EasyAI.pdf}.
 Wybrana gra probabilistyczna to \textbf{Nimby}. Zakres obejmuje:
 \begin{itemize}
-    \item implementacje wariantu probabilistycznego gry,
-    \item turnieje AI vs AI z kontrola gracza rozpoczynajacego,
-    \item porownanie algorytmow Negamax (z i bez odciecia alfa-beta),
+    \item implementację wariantu probabilistycznego gry,
+    \item turnieje AI vs AI z kontrolą gracza rozpoczynającego,
+    \item porównanie algorytmów Negamax (z i bez odcięcia alfa-beta),
     \item pomiar czasu podejmowania decyzji,
-    \item implementacje wariantu expecti-minimax z odcieciem alfa-beta.
+    \item implementację wariantu expecti-minimax z odcięciem alfa-beta.
 \end{itemize}
 
-Gra bazowa to klasyczny Nim (wariant misere): gracz zabierajacy ostatni element przegrywa.
-Stan poczatkowy w eksperymentach: trzy stosy \((3,4,5)\). Wariant Nimby wprowadza
-szum wykonania: dla ruchu ``zabierz $k$'' (gdy $k>1$), z prawdopodobienstwem $0.1$
+Gra bazowa to klasyczny Nim (wariant misere): gracz zabierający ostatni element przegrywa.
+Stan początkowy w eksperymentach: trzy stosy \((3,4,5)\). Wariant Nimby wprowadza
+szum wykonania: dla ruchu ``zabierz $k$'' (gdy $k>1$), z prawdopodobieństwem $0.1$
 wykonywane jest ``zabierz $k-1$''.
 
 \section{Implementacja}
-Kod znajduje sie w pliku \texttt{lab\_01/nimby\_experiments.py}.
+Kod znajduje się w pliku \texttt{lab\_01/nimby\_experiments.py}.
 Zaimplementowano:
 \begin{itemize}
-    \item klase \texttt{NimbyGame} (deterministyczny Nim i probabilistyczny Nimby przez parametr \texttt{error\_probability}),
-    \item \texttt{NegamaxNoAB} -- Negamax bez odciecia alfa-beta,
-    \item \texttt{ExpectiNegamaxAB} -- wariant expecti-minimax z odcieciem alfa-beta,
-    \item \texttt{TimedAIPlayer} -- zliczanie czasu decyzji i liczby ruchow,
-    \item runner eksperymentow zapisujacy wyniki do \texttt{lab\_01/results.json}.
+    \item klasę \texttt{NimbyGame} (deterministyczny Nim i probabilistyczny Nimby przez parametr \texttt{error\_probability}),
+    \item \texttt{NegamaxNoAB} -- Negamax bez odcięcia alfa-beta,
+    \item \texttt{ExpectiNegamaxAB} -- wariant expecti-minimax z odcięciem alfa-beta,
+    \item \texttt{TimedAIPlayer} -- zliczanie czasu decyzji i liczby ruchów,
+    \item runner eksperymentów zapisujący wyniki do \texttt{lab\_01/results.json}.
 \end{itemize}
 
-\paragraph{Wazny aspekt implementacyjny.}
-W srodowisku probabilistycznym nie mozna tracic spojnosci miedzy \texttt{make\_move}
-a \texttt{unmake\_move}. Dlatego rzeczywista liczba zabranych elementow jest zapisywana
-na stosie historii i cofana 1:1. Dla expecti-minimax zamiast losowania uzyto jawnych
-wezlow szansy (normalny ruch vs ``slip'') i wartosci oczekiwanej:
+\paragraph{Ważny aspekt implementacyjny.}
+W środowisku probabilistycznym nie można tracić spójności między \texttt{make\_move}
+a \texttt{unmake\_move}. Dlatego rzeczywista liczba zabranych elementów jest zapisywana
+na stosie historii i cofana 1:1. Dla expecti-minimax zamiast losowania użyto jawnych
+węzłów szansy (normalny ruch vs ``slip'') i wartości oczekiwanej:
 \[
 E = (1-p)\,V_{\text{normal}} + p\,V_{\text{slip}}, \quad p=0.1.
 \]
 
-Wykresy do raportu sa generowane automatycznie przez skrypt
+Wykresy do raportu są generowane automatycznie przez skrypt
 \texttt{lab\_01/generate\_plots.py} na podstawie \texttt{lab\_01/results.json}.
 
-\section{Metodologia eksperymentow}
+\section{Metodologia eksperymentów}
 Wszystkie testy uruchomiono skryptem:
 \begin{center}
 \texttt{uv run python lab\_01/nimby\_experiments.py}
 \end{center}
 
-Wspolne ustawienia:
+Wspólne ustawienia:
 \begin{itemize}
     \item naprzemienne rozpoczynanie partii (eliminacja biasu pierwszego ruchu),
-    \item limit 200 polruchow na partie (w praktyce brak remisow),
-    \item te same stany poczatkowe i kontrola ziaren losowosci po numerze partii.
+    \item limit 200 półruchów na partię (w praktyce brak remisów),
+    \item te same stany początkowe i kontrola ziaren losowości po numerze partii.
 \end{itemize}
 
 \section{Wyniki -- zadania na 4 punkty}
-Porownano dwa ustawienia glebokosci Negamax: \texttt{depth=4} i \texttt{depth=6},
+Porównano dwa ustawienia głębokości Negamax: \texttt{depth=4} i \texttt{depth=6},
 osobno dla Nim (deterministyczny) i Nimby (probabilistyczny).
 
 \begin{table}[h!]
@@ -106,7 +106,7 @@ osobno dla Nim (deterministyczny) i Nimby (probabilistyczny).
 \caption{NegamaxAB depth 4 vs depth 6 (200 partii)}
 \begin{tabular}{lrrrr}
 \toprule
-Wariant & Wygrane d4 & Wygrane d6 & Remisy & Sredni czas ruchu [ms] d4 : d6 \\
+Wariant & Wygrane d4 & Wygrane d6 & Remisy & Średni czas ruchu [ms] d4 : d6 \\
 \midrule
 Nim (det.) & 0 & 200 & 0 & 0.7146 : 5.4021 \\
 Nimby (prob.) & 104 & 96 & 0 & 0.8147 : 6.0359 \\
@@ -115,9 +115,9 @@ Nimby (prob.) & 104 & 96 & 0 & 0.8147 : 6.0359 \\
 \end{table}
 
 \paragraph{Komentarz.}
-W wariancie deterministycznym glebsze przeszukiwanie dominuje calkowicie.
-W wariancie probabilistycznym roznica glebokosci przestaje byc monotonicznie korzystna:
-przypadkowosc wykonania ruchu zaburza planowanie klasycznego Negamax.
+W wariancie deterministycznym głębsze przeszukiwanie dominuje całkowicie.
+W wariancie probabilistycznym różnica głębokości przestaje być monotonicznie korzystna:
+przypadkowość wykonania ruchu zaburza planowanie klasycznego Negamax.
 
 \begin{figure}[H]
 \centering
@@ -126,13 +126,13 @@ przypadkowosc wykonania ruchu zaburza planowanie klasycznego Negamax.
 \label{fig:task2wins}
 \end{figure}
 
-\section{Wyniki -- zadania na 6 punktow}
-Wykonano porownanie Negamax z i bez odciecia alfa-beta, dla dwoch glebokosci (4, 6)
-i dla obu wariantow gry.
+\section{Wyniki -- zadania na 6 punktów}
+Wykonano porównanie Negamax z i bez odcięcia alfa-beta, dla dwóch głębokości (4, 6)
+i dla obu wariantów gry.
 
 \begin{table}[h!]
 \centering
-\caption{Negamax z/bez alfa-beta (100 partii na kazde starcie)}
+\caption{Negamax z/bez alfa-beta (100 partii na każde starcie)}
 \begin{tabular}{llrrrr}
 \toprule
 Wariant & Starcie & Wygrane A & Wygrane B & Czas A [s] & Czas B [s] \\
@@ -146,19 +146,19 @@ Nimby & AB d6 vs NoAB d6 & 51 & 49 & 1.8052 & 25.6892 \\
 \end{table}
 
 \paragraph{Wnioski.}
-Decyzje strategiczne AB i NoAB sa porownywalne (w Nim idealnie identyczne),
-ale wydajnosc czasowa AB jest wielokrotnie lepsza. Dla \texttt{depth=6}
-bez odciecia koszt obliczen jest rzedu $10\times$ wiekszy.
+Decyzje strategiczne AB i NoAB są porównywalne (w Nim idealnie identyczne),
+ale wydajność czasowa AB jest wielokrotnie lepsza. Dla \texttt{depth=6}
+bez odcięcia koszt obliczeń jest rzędu $10\times$ większy.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{figures/task6_times.png}
-\caption{Task 6: porownanie lacznego czasu obliczen AB vs NoAB.}
+\caption{Task 6: porównanie łącznego czasu obliczeń AB vs NoAB.}
 \label{fig:task6times}
 \end{figure}
 
-\section{Wyniki -- zadania na 8 punktow}
-Zaimplementowano expecti-minimax z odcieciem alfa-beta i porownano z klasycznym
+\section{Wyniki -- zadania na 8 punktów}
+Zaimplementowano expecti-minimax z odcięciem alfa-beta i porównano z klasycznym
 NegamaxAB w Nimby.
 
 \begin{table}[h!]
@@ -174,10 +174,10 @@ Depth 6 & 23 & 77 & 2.1210 & 11.0509 \\
 \end{tabular}
 \end{table}
 
-\paragraph{Wnioski koncowe.}
-Expecti-minimax wyraznie poprawia skutecznosc w grze probabilistycznej, bo modeluje
-ryzyko bledu wykonania ruchu. Cena za te poprawe to wyzszy czas obliczen
-(okolo $2.6\times$ dla depth 4 i ponad $5\times$ dla depth 6).
+\paragraph{Wnioski końcowe.}
+Expecti-minimax wyraźnie poprawia skuteczność w grze probabilistycznej, bo modeluje
+ryzyko błędu wykonania ruchu. Cena za tę poprawę to wyższy czas obliczeń
+(około $2.6\times$ dla depth 4 i ponad $5\times$ dla depth 6).
 
 \begin{figure}[H]
 \centering
@@ -187,20 +187,20 @@ ryzyko bledu wykonania ruchu. Cena za te poprawe to wyzszy czas obliczen
 \end{figure}
 
 \section{Napotkane problemy}
-Glownym problemem byla zgodnosc logiki probabilistycznej z mechanizmem przeszukiwania
-drzewa. Negamax zaklada spojnosc wykonania/cofania ruchu; przy naiwnej losowosci
-w \texttt{make\_move} mozna latwo uszkodzic stan gry. Problem rozwiazano przez:
+Głównym problemem była zgodność logiki probabilistycznej z mechanizmem przeszukiwania
+drzewa. Negamax zakłada spójność wykonania/cofania ruchu; przy naiwnej losowości
+w \texttt{make\_move} można łatwo uszkodzić stan gry. Problem rozwiązano przez:
 \begin{itemize}
-    \item jawna rejestracje rzeczywiscie wykonanego ruchu,
-    \item deterministyczne cofanie ruchow po historii,
-    \item osobne modelowanie wezlow szansy w expecti-minimax.
+    \item jawną rejestrację rzeczywiście wykonanego ruchu,
+    \item deterministyczne cofanie ruchów po historii,
+    \item osobne modelowanie węzłów szansy w expecti-minimax.
 \end{itemize}
 
-\section{Reprodukowanie wynikow}
+\section{Reprodukowanie wyników}
 \begin{itemize}
-    \item generowanie wykresow: \texttt{uv run python lab\_01/generate\_plots.py}
+    \item generowanie wykresów: \texttt{uv run python lab\_01/generate\_plots.py}
     \item uruchomienie: \texttt{uv run python lab\_01/nimby\_experiments.py}
-    \item dane wyjsciowe: \texttt{lab\_01/results.json}
+    \item dane wyjściowe: \texttt{lab\_01/results.json}
     \item raport: \texttt{lab\_01/report.tex}
 \end{itemize}
 

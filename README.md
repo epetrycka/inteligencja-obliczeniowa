@@ -1,6 +1,6 @@
-# Projekt easyAI
+# Lab 1 - easyAI
 
-## Jak przygotowac dzialajace srodowisko (od zera)
+## Jak przygotowac dzialajace srodowisko
 
 ### 1) Wymagania
 
